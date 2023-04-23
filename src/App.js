@@ -4,6 +4,7 @@ import Login from './components/Login'
 import { accessToken, logout, getCurrentUserProfile } from './Spotify';
 import { catchErrors } from './utils';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WebPlayback from './pages/WebPlayback';
 
 // import useToken from './components/useToken'
 
