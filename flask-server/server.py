@@ -97,12 +97,16 @@ def callback():
     redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
     print(request.args['code'])
     print(authorization)
+
+
     encoded_oauth2_tokens = base64.b64encode('{}:{}'.format(CLIENT_ID, CLIENT_SECRET).encode())
     headers = {"Authorization": "Basic {}".format(encoded_oauth2_tokens.decode())}
     body = {'redirect_uri': redirect_uri, 
             'grant_type': 'authorization_code',
             'code': str(request.args.get('code'))}
     post_response = requests.post(token_url,headers=headers,data=body)
+
+    
     if post_response.status_code == 200:
         pr = post_response.json()
         access_token = pr['access_token']
