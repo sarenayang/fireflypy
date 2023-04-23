@@ -5,10 +5,12 @@ function App() {
   const [data, setData] = useState([{}])
 
   useEffect(() => {
-    fetch('/members').then(
-      response => response.json()
+    fetch('/currently_playing').then(
+      response => response.text(),
+      console.log("hello")
     ).then(
       data => { 
+        console.log('hello2u')
         setData(data)
         console.log(data)
       }
@@ -16,13 +18,9 @@ function App() {
   }, [])
   return (
     <div>
-      {(typeof data.members === 'undefined') ? (
+      {(typeof data.name === 'undefined') ? (
             <p>loading...</p>  ) : (
-            data.members.map((member, index) => (
-              <p key={index}>{member}</p> 
-            )
-
-          )
+            <p>{data.name}</p>
         )
       }
     </div>

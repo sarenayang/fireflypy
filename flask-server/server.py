@@ -1,5 +1,5 @@
 """
-code taken from spotpy/examples/app.py
+code taken from spotipy/examples/app.py
 
 Prerequisites
     pip3 install spotipy Flask Flask-Session
@@ -21,9 +21,12 @@ Run app.py
 """
 
 import os
-from flask import Flask, session, request, redirect
+from flask import Flask, session, request, redirect, jsonify
 from flask_session import Session
+from dotenv import load_dotenv
 import spotipy
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(64)
@@ -86,9 +89,9 @@ def currently_playing():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    track = spotify.current_user_playing_track()
+    track = spotify.currently_playing()
     if not track is None:
-        return track
+        return jsonify(track)
     return "No track currently playing."
 
 
@@ -99,7 +102,7 @@ def current_user():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user()
+    return jsonify(spotify.current_user())
 
 
 '''
