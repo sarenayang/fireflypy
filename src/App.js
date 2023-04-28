@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import Login from './components/Login'
-import { accessToken, logout, getCurrentUserProfile } from './Spotify';
+import { accessToken, logout, getCurrentUserProfile, getCurrentUserPlayingTrack } from './Spotify';
 import { catchErrors } from './utils';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import WebPlayback from './pages/WebPlayback';
-
-// import useToken from './components/useToken'
+// import SpotifyPlayer from 'react-spotify-web-playback';
+import CurrentlyPlaying from './pages/CurrentlyPlaying';
 
 function App() {
 
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  // const [playingTrack, setPlayingTrack] = useState(null);
 
   useEffect(() => {
     setToken(accessToken);
@@ -19,10 +17,14 @@ function App() {
     const fetchData = async () => {
       const { data } = await getCurrentUserProfile();
       setProfile(data);
+      // const { data: currentlyPlayingTrack } = await getCurrentUserPlayingTrack();
+      // setPlayingTrack(currentlyPlayingTrack);
     };
 
     catchErrors(fetchData());
   }, []);
+  // console.log(playingTrack)
+
 
   
   return (
@@ -54,6 +56,11 @@ function App() {
               <Route path="/" element={
                 <>
                 <button onClick={logout}>Log Out</button>
+                {/* <SpotifyPlayer
+                  token={token}
+                  uris={['spotify:playlist:7wViefD8fKvF59vD24g8Bi']}
+                /> */}
+                <CurrentlyPlaying token={token} />
                 <br></br>
                 {profile && (
                   <div>
