@@ -163,6 +163,11 @@ def current_user():
     return jsonify(spotify.current_user())
 
 
+@app.route("/mic")
+def mic():
+    return "mic no work"
+
+
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)

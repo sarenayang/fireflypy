@@ -5,6 +5,7 @@ import { accessToken, logout, getCurrentUserProfile } from './Spotify';
 import { catchErrors } from './utils';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WebPlayback from './pages/WebPlayback';
+import Dictaphone from './components/Dictaphone';
 
 // import useToken from './components/useToken'
 
@@ -70,6 +71,9 @@ function App() {
           </Router>
         )}
       </header>
+      <div>
+        <Dictaphone />
+      </div>
     </div>
   )
 }
