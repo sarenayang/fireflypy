@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { accessToken, logout, getCurrentUserProfile } from './Spotify';
 import { catchErrors } from './utils';
+<<<<<<< HEAD
 import CurrentlyPlaying from './components/CurrentlyPlaying';
 import SongInput from './components/SongInput';
+=======
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WebPlayback from './pages/WebPlayback';
+import Dictaphone from './components/Dictaphone';
+
+// import useToken from './components/useToken'
+>>>>>>> ur message here
 
 function App() {
 
@@ -57,6 +65,9 @@ function App() {
               </>
         )}
       </header>
+      <div>
+        <Dictaphone />
+      </div>
     </div>
   )
 }

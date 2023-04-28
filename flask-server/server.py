@@ -158,6 +158,7 @@ def current_user():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return jsonify(spotify.current_user())
 
+<<<<<<< HEAD
 @app.route('/add', methods=['POST'])
 def add():
     song_info.clear() 
@@ -183,6 +184,14 @@ def title_input():
     print('guess: ', request.get_json()['name'])
     print('answer: ', song_info[0])
     return jsonify({ 'guess': name, 'answer': answer, 'title': song_info[0] })
+=======
+
+@app.route("/mic")
+def mic():
+    return "mic no work"
+
+
+>>>>>>> ur message here
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)
