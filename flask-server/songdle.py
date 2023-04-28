@@ -4,7 +4,7 @@
 # In[ ]:
 
 
-get_ipython().system('pip install pyaudio')
+# get_ipython().system('pip install pyaudio')
 
 
 # In[1]:
