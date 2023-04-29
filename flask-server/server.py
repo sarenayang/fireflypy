@@ -186,9 +186,10 @@ def title_input():
     return jsonify({ 'guess': name, 'answer': answer, 'title': song_info[0] })
 =======
 
-@app.route("/mic")
+@app.route("/mic", methods = ['POST'])
 def mic():
-    return "mic no work"
+    micinput = request.form
+    print(micinput)
 
 
 >>>>>>> ur message here
