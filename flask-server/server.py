@@ -163,9 +163,10 @@ def current_user():
     return jsonify(spotify.current_user())
 
 
-@app.route("/mic")
+@app.route("/mic", methods = ['POST'])
 def mic():
-    return "mic no work"
+    micinput = request.form
+    print(micinput)
 
 
 '''
