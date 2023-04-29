@@ -55,6 +55,7 @@ function App() {
               <Route path="/" element={
                 <>
                 <button onClick={logout}>Log Out</button>
+                <Dictaphone />
                 <br></br>
                 {profile && (
                   <div>
@@ -72,7 +73,7 @@ function App() {
         )}
       </header>
       <div>
-        <Dictaphone />
+       
       </div>
     </div>
   )
