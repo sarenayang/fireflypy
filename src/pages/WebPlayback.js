@@ -63,7 +63,7 @@ function WebPlayback(props) {
             player.connect();
 
         };
-    }, []);
+    }, [props.token]);
 
     if (!is_active) { 
         return (
