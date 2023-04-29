@@ -157,7 +157,12 @@ def current_user():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return jsonify(spotify.current_user())
 
+@app.route('/add', methods=['POST'])
+def add(): 
 
+    print(request.get_json()['name'])
+    print(request.get_json()['artists'][0]['name'])
+    return request.get_json()
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)

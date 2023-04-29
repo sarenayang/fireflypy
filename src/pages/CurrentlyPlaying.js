@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const track = {
     name: "",
@@ -47,6 +48,14 @@ function CurrentlyPlaying(props) {
 
                 setTrack(state.track_window.current_track);
                 setPaused(state.paused);
+
+                axios.post('http://localhost:8080/add', state.track_window.current_track).then(
+                    function(response) {
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
                 console.log(state.track_window.current_track.name + ',' + state.track_window.current_track.artists[0].name);
 
                 player.getCurrentState().then( state => { 
