@@ -46,12 +46,16 @@ function App() {
         ) : (
                 <>
                 <button onClick={logout}>Log Out</button>
+<<<<<<< HEAD
                 {/* <SpotifyPlayer
                   token={token}
                   uris={['spotify:playlist:7wViefD8fKvF59vD24g8Bi']}
                 /> */}
                 <CurrentlyPlaying token={token} />
                 <SongInput></SongInput>
+=======
+                <Dictaphone />
+>>>>>>> fixed dictaphone load page
                 <br></br>
                 {profile && (
                   <div>
@@ -66,7 +70,7 @@ function App() {
         )}
       </header>
       <div>
-        <Dictaphone />
+       
       </div>
     </div>
   )
