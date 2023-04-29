@@ -44,7 +44,7 @@ CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
 
 spotify_client = SpotifyClient(os.getenv("SPOTIPY_CLIENT_ID"), os.getenv("SPOTIPY_CLIENT_SECRET"))
-
+song_info = []
 @app.route('/')
 def index():
 
@@ -158,11 +158,29 @@ def current_user():
     return jsonify(spotify.current_user())
 
 @app.route('/add', methods=['POST'])
-def add(): 
+def add():
+    song_info.clear() 
+    name = request.get_json()['name']
+    song_info.append(name)
+    artist = request.get_json()['artists'][0]['name']
+    song_info.append(artist)
+    return name, artist
 
-    print(request.get_json()['name'])
-    print(request.get_json()['artists'][0]['name'])
-    return request.get_json()
+@app.route('/title_input', methods=['POST', 'GET'])
+def title_input():
+    flag = False
+    name = request.get_json()['name']
+    if (song_info):
+        if (name == song_info[0]):
+            print('true')
+        else:
+            print('false')
+    else:
+        print('song already guessed')
+        return ''
+    print('guess: ', request.get_json()['name'])
+    print('answer: ', song_info[0])
+    return ''
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)

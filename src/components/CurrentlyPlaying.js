@@ -21,7 +21,6 @@ function CurrentlyPlaying(props) {
     const [current_track, setTrack] = useState(track);
 
     useEffect(() => {
-
         window.onSpotifyWebPlaybackSDKReady = () => {
 
             const player = new window.Spotify.Player({
