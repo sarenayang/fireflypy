@@ -45,6 +45,7 @@ REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
 
 spotify_client = SpotifyClient(os.getenv("SPOTIPY_CLIENT_ID"), os.getenv("SPOTIPY_CLIENT_SECRET"))
 song_info = []
+answer = ''
 @app.route('/')
 def index():
 
@@ -88,10 +89,10 @@ def authorize():
 @app.route('/callback')
 def callback():
     token_url = 'https://accounts.spotify.com/api/token'
-    authorization = 'Basic ' + os.getenv("SPOTIPY_CLIENT_ID") + ':' + os.getenv("SPOTIPY_CLIENT_SECRET")
+    # authorization = 'Basic ' + os.getenv("SPOTIPY_CLIENT_ID") + ':' + os.getenv("SPOTIPY_CLIENT_SECRET")
     redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
-    print(request.args['code'])
-    print(authorization)
+    # print(request.args['code'])
+    # print(authorization)
 
 
     encoded_oauth2_tokens = base64.b64encode('{}:{}'.format(CLIENT_ID, CLIENT_SECRET).encode())
@@ -166,21 +167,22 @@ def add():
     song_info.append(artist)
     return name, artist
 
-@app.route('/title_input', methods=['POST', 'GET'])
+@app.route('/title_input', methods=['POST'])
 def title_input():
-    flag = False
     name = request.get_json()['name']
     if (song_info):
         if (name == song_info[0]):
-            print('true')
+            answer = 'your answer is the correct answer'
+            print(answer)
         else:
-            print('false')
+            answer = 'your answer is the <b>wrong answer<b>'
+            print(answer)
     else:
         print('song already guessed')
         return ''
     print('guess: ', request.get_json()['name'])
     print('answer: ', song_info[0])
-    return ''
+    return jsonify({ 'guess': name, 'answer': answer, 'title': song_info[0] })
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)

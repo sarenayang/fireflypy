@@ -50,7 +50,7 @@ function CurrentlyPlaying(props) {
 
                 axios.post('http://localhost:8080/add', state.track_window.current_track).then(
                     function(response) {
-                        console.log(response);
+                        // console.log(response);
                     })
                     .catch(function(error) {
                         console.log(error);

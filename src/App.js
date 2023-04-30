@@ -17,8 +17,13 @@ function App() {
       setProfile(data);
 
     };
+    // const fetchAnswer = async () => {
+    //   const { ans } = await fetch('http://localhost:8080/input_title');
+    //   setAnswer(ans);
+    // };
 
     catchErrors(fetchData());
+    // catchErrors(fetchAnswer());
   }, []);
 
 
