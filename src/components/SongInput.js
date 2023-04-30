@@ -41,12 +41,13 @@ function SongInput() {
                         <br></br>
                         <label htmlFor='nameartist'>Artist Name </label>
                         <input type='text' id='nameartist' onChange={e => setArtist(e.target.value)}/>
+                        <button> submit </button>
                         <p>Microphone: {listening ? 'on' : 'off'}</p>
                         <button onClick={SpeechRecognition.startListening}>Start</button>
                         <button onClick={resetTranscript}>Reset</button>
                         <p>{transcript}</p> 
                         <button onClick={() => setTitle(transcript)}>Confirm</button>
-                        <button> submit </button>
+                        
                     </form>
                 </div>
                 <div>

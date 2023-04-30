@@ -4,6 +4,7 @@ import { catchErrors } from './utils';
 import CurrentlyPlaying from './components/CurrentlyPlaying';
 import SongInput from './components/SongInput';
 import Timer from './components/Timer';
+import SongPlaylists from './components/SongPlaylists'
 
 function App() {
 
@@ -16,7 +17,6 @@ function App() {
     const fetchData = async () => {
       const { data } = await getCurrentUserProfile();
       setProfile(data);
-
     };
     // const fetchAnswer = async () => {
     //   const { ans } = await fetch('http://localhost:8080/input_title');
@@ -60,7 +60,7 @@ function App() {
         )}
       </header>
       <div>
-       
+       <SongPlaylists></SongPlaylists>
       </div>
     </div>
   )
