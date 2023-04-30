@@ -3,6 +3,7 @@ import { accessToken, logout, getCurrentUserProfile } from './Spotify';
 import { catchErrors } from './utils';
 import CurrentlyPlaying from './components/CurrentlyPlaying';
 import SongInput from './components/SongInput';
+import Timer from './components/Timer';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
                 <CurrentlyPlaying token={token} />
                 <SongInput></SongInput>
                 <br></br>
+                <Timer></Timer>
                 {profile && (
                   <div>
                     <h1>{profile.display_name}</h1>
@@ -57,6 +59,9 @@ function App() {
               </>
         )}
       </header>
+      <div>
+       
+      </div>
     </div>
   )
 }
