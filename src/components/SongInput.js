@@ -1,5 +1,21 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import {
+    Container,
+    FormControl,
+    FormLabel,
+    Input,
+    Button,
+    FormErrorMessage,
+    FormHelperText,
+  } from '@chakra-ui/react'
+import {
+    VStack,
+    Heading,
+    Text,
+    Center,
+
+} from '@chakra-ui/react'
 
 function SongInput() {
 
@@ -16,51 +32,81 @@ function SongInput() {
     )
     const [points, setPoints] = useState(0)
     
-    function handleSubmit(e) {
-        e.preventDefault()
+    // function handleSubmit(e) {
+    //     // e.preventDefault()
+    //     const data = { name: title, artist: artist}
+    //     axios.post('http://localhost:8080/title_input', data)
+    //     .then((res) => {
+    //         // JSON response is handled by a json() promises
+    //         console.log(res.data)
+    //         setAnswer(res.data)
+    //         if (answer.song_guess === answer.song_correct && answer.artist_guess === answer.artist_correct) {
+    //             setPoints(points + 2)
+    //         }
+    //         else if (answer.song_guess === answer.song_correct || answer.artist_guess === answer.artist_correct) {
+    //             setPoints(points + 1)
+    //         }
+    //    });
+       
+
+    //     e.target.reset()
+    // }
+    // i think there's something wrong with resetting the answers, which messes with the points
+    const handleSubmit = (event) => {
+        event.preventDefault();
         const data = { name: title, artist: artist}
         axios.post('http://localhost:8080/title_input', data)
         .then((res) => {
             // JSON response is handled by a json() promises
+            console.log(res.data)
             setAnswer(res.data)
-            if (answer.song_guess === answer.song_correct && answer.artist_guess === answer.artist_correct) {
-                setPoints(points + 2)
-            }
-            else if (answer.song_guess === answer.song_correct || answer.artist_guess === answer.artist_correct) {
-                setPoints(points + 1)
-            }
-       });
-       
-
-        e.target.reset()
+            
+         });
+         if (answer.song_guess === answer.song_correct && answer.artist_guess === answer.artist_correct) {
+            setPoints(points + 2)
+        }
+        else if (answer.song_guess === answer.song_correct || answer.artist_guess === answer.artist_correct) {
+            setPoints(points + 1)
+        }
     }
-    
 
     return (
         <>
-            <div className="container">
-                <div className="main-wrapper">
-                    <form action='' onSubmit={handleSubmit} method='post'> 
-                        <label htmlFor='namesong'>Song Name </label>
-                        <input type='text' id='namesong' onChange={e => setTitle(e.target.value)}/>
+            
+            <Container centerContent>
+                <form onSubmit={handleSubmit} method='post'>
+                    <FormControl>
+                        <div>
+                            <FormLabel>Song Name</FormLabel>
+                            <Input htmlSize={20} width='auto' type='text' id='namesong' onChange={e => setTitle(e.currentTarget.value)}/>
+                        </div>
                         <br></br>
-                        <label htmlFor='nameartist'>Artist Name </label>
-                        <input type='text' id='nameartist' onChange={e => setArtist(e.target.value)}/>
-                        <button> submit </button>
-                    </form>
-                </div>
-                <div>
-                    <h3>Your Song and Artist Guess:</h3>
-                    <p>{answer.song_guess} by {answer.artist_guess}</p>
-                    <h3>Correct answer:</h3>
-                    <p>{answer.song_correct} by {answer.artist_correct}</p>
-                    <p><i>{answer.song_answer}</i></p>
-                    <p><i>{answer.artist_answer}</i></p>
-                </div>
-                <div>
-                    <h3>Points: {points}</h3>
-                </div>
-            </div>
+                        <div>
+                            <FormLabel>Artist Name</FormLabel>
+                            <Input htmlSize={20} width='auto' type='text' id='nameartist' onChange={e => setArtist(e.currentTarget.value)}/>
+                        </div>
+                    </FormControl>
+                    <Center>
+                        <Button m='4' type='submit'>Submit</Button>
+                    </Center>
+                    
+                </form>
+            </Container>
+            <br></br>
+            <Container>
+                <VStack>
+                    <Heading size='md'>Your Song and Artist Guess:</Heading>
+                    <Text>{answer.song_guess} by {answer.artist_guess}</Text>
+                    <Heading size='md'>Correct answer:</Heading>
+                    <Text>{answer.song_correct} by {answer.artist_correct}</Text>
+                    <Text><i>{answer.song_answer}</i></Text>
+                    <Text><i>{answer.artist_answer}</i></Text>
+
+                    <Heading size='md'>Points: {points}</Heading>
+                </VStack>
+            </Container>
+                    
+                
         </>
     );
     

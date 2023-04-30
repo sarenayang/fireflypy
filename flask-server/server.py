@@ -121,6 +121,9 @@ def add():
     song_info.append(name)
     artist = request.get_json()['artists'][0]['name']
     song_info.append(artist)
+    # picture = request.get_json()['album']['images'][0]['url']
+    # print(picture)
+    # song_info.append(picture)
     return name, artist
 
 @app.route('/title_input', methods=['POST'])
@@ -150,7 +153,7 @@ def title_input():
                     'song_correct': song_info[0],
                     'artist_correct': song_info[1],
                     'song_answer': song_answer,
-                    'artist_answer': artist_answer       
+                    'artist_answer': artist_answer 
                     })
 '''
 Following lines allow application to be run more conveniently with
