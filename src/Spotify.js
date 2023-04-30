@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const LOCALSTORAGE_KEYS = {
   accessToken: 'spotify_access_token',
   refreshToken: 'spotify_refresh_token',
@@ -130,3 +131,10 @@ axios.defaults.headers['Content-Type'] = 'application/json';
  * @returns {Promise}
  */
 export const getCurrentUserProfile = () => axios.get('/me');
+
+/**
+ * Get Currently Playing Track
+ * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+ * @returns {Promise}
+ */
+export const getCurrentUserPlayingTrack = () => axios.get('/me/player/currently-playing');
