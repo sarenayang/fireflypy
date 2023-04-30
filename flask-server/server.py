@@ -31,6 +31,7 @@ import requests
 import spotipy
 from flask_cors import CORS
 from spotify_client import SpotifyClient
+import Levenshtein
 load_dotenv()
 
 app = Flask(__name__)
@@ -171,7 +172,7 @@ def add():
 def title_input():
     name = request.get_json()['name']
     if (song_info):
-        if (name == song_info[0]):
+        if (check_correct_title(name, song_info[0])):
             answer = 'your answer is the correct answer'
             print(answer)
         else:
@@ -188,5 +189,26 @@ Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)
 (Also includes directive to leverage pythons threading capacity.)
 '''
+
+def check_correct_title(song, response):
+    song = song.lower()
+    response = response.lower()
+    dist = Levenshtein.ratio(song, response, score_cutoff = 0.83)
+    print(dist)
+    if (dist > 0.83):
+        return True
+    else:
+        return False
+    
+def check_correct_artist(artist, response):
+    artist = artist.lower()
+    response = response.lower()
+    dist = Levenshtein.ratio(artist, response, score_cutoff = 0.83)
+    print(dist)
+    if (dist > 0.83):
+        return True
+    else:
+        return False
+
 if __name__ == '__main__':
     app.run(threaded=True, port=8080)
