@@ -5,20 +5,36 @@ function SongInput() {
 
     const [title, setTitle] = useState('')
     const [artist, setArtist] = useState('')
-    const [answer, setAnswer] = useState({'guess': '', 'answer': 'Please make a guess.', 'title': ''})
+    const [answer, setAnswer] = useState(
+                    {'song_guess': '', 
+                    'artist_guess': '',
+                    'song_correct': '',
+                    'artist_correct': '',
+                    'song_answer': '',
+                    'artist_answer': ''     
+                    }
+    )
+    const [points, setPoints] = useState(0)
     
     function handleSubmit(e) {
         e.preventDefault()
-        const data = { name: title }
-        console.log(title)
+        const data = { name: title, artist: artist}
         axios.post('http://localhost:8080/title_input', data)
         .then((res) => {
             // JSON response is handled by a json() promises
-            console.log(res.data);
             setAnswer(res.data)
+            if (answer.song_guess === answer.song_correct && answer.artist_guess === answer.artist_correct) {
+                setPoints(points + 2)
+            }
+            else if (answer.song_guess === answer.song_correct || answer.artist_guess === answer.artist_correct) {
+                setPoints(points + 1)
+            }
        });
+       
+
         e.target.reset()
     }
+    
 
     return (
         <>
@@ -34,11 +50,15 @@ function SongInput() {
                     </form>
                 </div>
                 <div>
-                    <h3>Your guess:</h3>
-                    <p>{answer.guess}</p>
+                    <h3>Your Song and Artist Guess:</h3>
+                    <p>{answer.song_guess} by {answer.artist_guess}</p>
                     <h3>Correct answer:</h3>
-                    <p>{answer.title}</p>
-                    <p><i>{answer.answer}</i></p>
+                    <p>{answer.song_correct} by {answer.artist_correct}</p>
+                    <p><i>{answer.song_answer}</i></p>
+                    <p><i>{answer.artist_answer}</i></p>
+                </div>
+                <div>
+                    <h3>Points: {points}</h3>
                 </div>
             </div>
         </>
