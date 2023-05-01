@@ -3,14 +3,18 @@ import { accessToken, logout, getCurrentUserProfile } from './Spotify';
 import { catchErrors } from './utils';
 import CurrentlyPlaying from './components/CurrentlyPlaying';
 import SongInput from './components/SongInput';
+import Instructions from './components/Instructions';
 
 import {
   Link,
   Button,
   Container,
   Center,
-  Heading
+  Heading,
+  HStack,
+  VStack
 } from '@chakra-ui/react'
+
 
 function App() {
 
@@ -39,24 +43,33 @@ function App() {
             //   Log in to Spotify
             // </a>
             <Center>
-              <Button colorScheme='green' m='400'>
-                <Link href="http://127.0.0.1:8080/authorize">
-                Log in to Spotify
-                </Link>
-              </Button>
+              <VStack>
+                <Heading mt='20%' size='lg'>Welcome to Firefly, the Spotify Guessing Game!</Heading>
+                <Button mt='10%' colorScheme='green'>
+                  <Link href="http://127.0.0.1:8080/authorize">
+                  Log in to Spotify
+                  </Link>
+                </Button>
+              </VStack>
+              
               
             </Center>
             
           ) : (
                 <>
-                  <Container mt='100' centerContent> 
-                    <Button onClick={logout}>Log Out</Button>
+                  <Container mt='0.5%' centerContent> 
+                    <Button colorScheme='purple' variant='outline' onClick={logout}>Log Out</Button>
+                  </Container>
+                  <Container mt='1%' centerContent>
+                    <Instructions></Instructions>
                   </Container>
                   <br></br>
+                  <HStack>
+                    <CurrentlyPlaying token={token} />
+                    <br></br>
+                    <SongInput></SongInput>
+                  </HStack>
                   
-                  <CurrentlyPlaying token={token} />
-                  <br></br>
-                  <SongInput></SongInput>
                   <br></br>
                   <Center>
                     <Heading size='sm'>Profile: </Heading>

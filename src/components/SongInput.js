@@ -27,47 +27,30 @@ function SongInput() {
                     'song_correct': '',
                     'artist_correct': '',
                     'song_answer': '',
-                    'artist_answer': ''     
+                    'artist_answer': '' ,
+                    'points': 0,
+                    'already_guessed':  ''    
                     }
     )
     const [points, setPoints] = useState(0)
     
-    // function handleSubmit(e) {
-    //     // e.preventDefault()
-    //     const data = { name: title, artist: artist}
-    //     axios.post('http://localhost:8080/title_input', data)
-    //     .then((res) => {
-    //         // JSON response is handled by a json() promises
-    //         console.log(res.data)
-    //         setAnswer(res.data)
-    //         if (answer.song_guess === answer.song_correct && answer.artist_guess === answer.artist_correct) {
-    //             setPoints(points + 2)
-    //         }
-    //         else if (answer.song_guess === answer.song_correct || answer.artist_guess === answer.artist_correct) {
-    //             setPoints(points + 1)
-    //         }
-    //    });
-       
-
-    //     e.target.reset()
-    // }
     // i think there's something wrong with resetting the answers, which messes with the points
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = { name: title, artist: artist}
+        const data = { name: title, artist: artist, points: points}
         axios.post('http://localhost:8080/title_input', data)
         .then((res) => {
             // JSON response is handled by a json() promises
             console.log(res.data)
             setAnswer(res.data)
+            setPoints(res.data.points)
             
          });
-         if (answer.song_guess === answer.song_correct && answer.artist_guess === answer.artist_correct) {
-            setPoints(points + 2)
-        }
-        else if (answer.song_guess === answer.song_correct || answer.artist_guess === answer.artist_correct) {
-            setPoints(points + 1)
-        }
+    }
+
+    const resetPoints = (event) => {
+        event.preventDefault();
+        setPoints(0)
     }
 
     return (
@@ -87,7 +70,7 @@ function SongInput() {
                         </div>
                     </FormControl>
                     <Center>
-                        <Button m='4' type='submit'>Submit</Button>
+                        <Button colorScheme='purple' variant='outline' m='4' type='submit'>Submit</Button>
                     </Center>
                     
                 </form>
@@ -101,8 +84,10 @@ function SongInput() {
                     <Text>{answer.song_correct} by {answer.artist_correct}</Text>
                     <Text><i>{answer.song_answer}</i></Text>
                     <Text><i>{answer.artist_answer}</i></Text>
+                    <Text>{answer.already_guessed}</Text>
 
                     <Heading size='md'>Points: {points}</Heading>
+                    <Button colorScheme='purple' variant='outline' onClick={resetPoints}>Reset Points</Button>
                 </VStack>
             </Container>
                     

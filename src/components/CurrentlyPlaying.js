@@ -12,6 +12,8 @@ import {
     HStack,
 } from '@chakra-ui/react'
 
+import Hint from './Hint';
+
 const track = {
     name: "",
     album: {
@@ -35,7 +37,7 @@ function CurrentlyPlaying(props) {
         const player = new window.Spotify.Player({
             name: 'scoobity bop bop bop',
             getOAuthToken: cb => { cb(props.token); },
-            volume: 0.5
+            volume: 0.85
         });
 
         setPlayer(player);
@@ -93,7 +95,8 @@ function CurrentlyPlaying(props) {
         return (
             <>
                 <Container maxW='container.md' centerContent>
-                    <img src={current_track.album.images[0].url} className="now-playing__cover" alt="" />
+                    {/* <img src={current_track.album.images[0].url} className="now-playing__cover" alt="" /> */}
+                    <Hint hint={current_track.album.images[0].url}></Hint>
                         <div className="now-playing__side">
                             {/* <Center>
                                 <div className="now-playing__name">{current_track.name}</div>
@@ -103,9 +106,9 @@ function CurrentlyPlaying(props) {
                             </Center> */}
                             <br></br>
                             <HStack>
-                                <IconButton className='btn-spotify' icon={<ArrowLeftIcon />} onClick={() => { player.previousTrack() }} />
-                                <Button className='btn-spotify' onClick={() => { player.togglePlay() }}> { is_paused ? "PLAY" : "PAUSE" } </Button>
-                                <IconButton className='btn-spotify' icon={<ArrowRightIcon />} onClick={() => { player.nextTrack() }} />
+                                <IconButton colorScheme='green' variant='outline' className='btn-spotify' icon={<ArrowLeftIcon />} onClick={() => { player.previousTrack() }} />
+                                <Button className='btn-spotify' colorScheme='green' variant='outline' onClick={() => { player.togglePlay() }}> { is_paused ? "PLAY" : "PAUSE" } </Button>
+                                <IconButton className='btn-spotify' colorScheme='green' variant='outline' icon={<ArrowRightIcon />} onClick={() => { player.nextTrack() }} />
                             </HStack>    
                         </div>
                 </Container>

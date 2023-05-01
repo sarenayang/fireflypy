@@ -132,28 +132,36 @@ def title_input():
     artist_answer = ''
     name = request.get_json()['name']
     artist = request.get_json()['artist']
+    points = request.get_json()['points']
+    correct_song = song_info[0]
+    correct_artist = song_info[1]
+    already_guessed = ''
     if (song_info):
         if (name.lower() == song_info[0].lower()):
             song_answer = 'your song guess is the correct answer'
+            points+=1
         else:
             song_answer = 'your song guess is the wrong answer'
         if (artist.lower() == song_info[1].lower()):
             artist_answer = 'your artist guess is the correct answer'
+            points+=1
         else:
             artist_answer = 'your artist guess is the wrong answer'
     else:
-        print('song already guessed')
+        already_guessed = 'song already guessed'
         return ''
-    
+    song_info.clear()
     # print('guess: ', request.get_json()['name'])
     # print('answer: ', song_info[0])
 
     return jsonify({'song_guess': name, 
                     'artist_guess': artist,
-                    'song_correct': song_info[0],
-                    'artist_correct': song_info[1],
+                    'song_correct': correct_song,
+                    'artist_correct': correct_artist,
                     'song_answer': song_answer,
-                    'artist_answer': artist_answer 
+                    'artist_answer': artist_answer,
+                    'points': points,
+                    'already_guessed': already_guessed
                     })
 '''
 Following lines allow application to be run more conveniently with
