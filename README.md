@@ -9,7 +9,7 @@ Using the [Spotify API](https://developer.spotify.com/documentation/web-api) and
 <img width="364" alt="image" src="https://user-images.githubusercontent.com/89556837/235406152-4765fe2f-e01e-4da7-8f5d-bba7f8953122.png"> 
 
 Users are then redirected to the game\
-<img width="481" alt="image" src="https://user-images.githubusercontent.com/89556837/235406208-c2fe26cf-53f7-4d1d-ba24-3421c423f506.png">\
+<img width="957" alt="image" src="https://user-images.githubusercontent.com/89556837/235491234-65273782-dcf9-40ad-b1f7-7a0668384e51.png">\
 Here, they are able to log out or connect to their Spotify playback using Spotify Connect. Once they are connected, they can play songs and try to guess the song name and song artist, winning points for each one they get correct.
 
 We implemented a speech recoginition feature so that users could make guesses using their voices, utilizing Python libraries such as Levenshtein to process the microphone input. As a backup, we also implemented a keyboard feature so that users could type out their guesses as well, in case we were unsuccessful with the speech recognition feature. 
