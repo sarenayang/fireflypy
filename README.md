@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# Firefly Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A game similar to Wordle, but you guess songs as they play instead.
+
+
+## Project Description
+Using the [Spotify API](https://developer.spotify.com/documentation/web-api) and [Spotify's Developer Dashboard](https://developer.spotify.com/dashboard), this game allows users to login to their accounts, enabling them to control Spotify playback directly in their browser. \
+<img width="373" alt="image" src="https://user-images.githubusercontent.com/89556837/235406107-11ca61df-a63e-406d-8710-02bd6a210f74.png"> \
+<img width="364" alt="image" src="https://user-images.githubusercontent.com/89556837/235406152-4765fe2f-e01e-4da7-8f5d-bba7f8953122.png"> 
+
+Users are then redirected to the game\
+<img width="481" alt="image" src="https://user-images.githubusercontent.com/89556837/235406208-c2fe26cf-53f7-4d1d-ba24-3421c423f506.png">\
+Here, they are able to log out or connect to their Spotify playback using Spotify Connect. Once they are connected, they can play songs and try to guess the song name and song artist, winning points for each one they get correct.
+
+We implemented a speech recoginition feature so that users could make guesses using their voices, utilizing Python libraries such as Levenshtein to process the microphone input. As a backup, we also implemented a keyboard feature so that users could type out their guesses as well, in case we were unsuccessful with the speech recognition feature. 
+
+For this project, we utilized React.js for the frontend and customized the components using Chakra UI. For the backend, which allowed us to authenticate users as well as process user input and return their results, we used Flask, allowing us to use Python libraries for our scripts and processing.
 
 ## Available Scripts
 
@@ -11,55 +25,13 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In the flask-server directory, you can run:
 
-### `npm test`
+### `python3 server.py`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the backend server.\
+Runs on [http://localhost:8080] in development mode.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
 ### Deployment
 
