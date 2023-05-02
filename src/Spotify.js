@@ -138,3 +138,5 @@ export const getCurrentUserProfile = () => axios.get('/me');
  * @returns {Promise}
  */
 export const getCurrentUserPlayingTrack = () => axios.get('/me/player/currently-playing');
+
+export const getPlaylists = () => axios.get('https://api.spotify.com/v1/me/playlists');
