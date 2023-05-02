@@ -3,6 +3,18 @@ import { accessToken, logout, getCurrentUserProfile } from './Spotify';
 import { catchErrors } from './utils';
 import CurrentlyPlaying from './components/CurrentlyPlaying';
 import SongInput from './components/SongInput';
+import Instructions from './components/Instructions';
+
+import {
+  Link,
+  Button,
+  Container,
+  Center,
+  Heading,
+  HStack,
+  VStack
+} from '@chakra-ui/react'
+
 
 function App() {
 
@@ -17,47 +29,66 @@ function App() {
       setProfile(data);
 
     };
-    // const fetchAnswer = async () => {
-    //   const { ans } = await fetch('http://localhost:8080/input_title');
-    //   setAnswer(ans);
-    // };
-
     catchErrors(fetchData());
-    // catchErrors(fetchAnswer());
   }, []);
 
 
   
   return (
-    <div className="App">
-      <header className="App-header">
-      {!token ? (
-          <a className="App-link" href="http://127.0.0.1:8080/authorize">
-            Log in to Spotify
-          </a>
-        ) : (
+    <>
+      <div className="App">
+        <header className="App-header">
+        {!token ? (
+            // <a className="App-link" href="http://127.0.0.1:8080/authorize">
+            //   Log in to Spotify
+            // </a>
+            <Center>
+              <VStack>
+                <Heading mt='20%' size='lg'>Welcome to Firefly, the Spotify Guessing Game!</Heading>
+                <Button mt='10%' colorScheme='green'>
+                  <Link href="http://127.0.0.1:8080/authorize">
+                  Log in to Spotify
+                  </Link>
+                </Button>
+              </VStack>
+              
+              
+            </Center>
+            
+          ) : (
                 <>
-                <button onClick={logout}>Log Out</button>
-                {/* <SpotifyPlayer
-                  token={token}
-                  uris={['spotify:playlist:7wViefD8fKvF59vD24g8Bi']}
-                /> */}
-                <CurrentlyPlaying token={token} />
-                <SongInput></SongInput>
-                <br></br>
-                {profile && (
-                  <div>
-                    <h1>{profile.display_name}</h1>
-                    <p>{profile.followers.total} Followers</p>
-                    {profile.images.length && profile.images[0].url && (
-                      <img src={profile.images[0].url} alt="Avatar"/>
+                  <Container mt='0.5%' centerContent> 
+                    <Button colorScheme='purple' variant='outline' onClick={logout}>Log Out</Button>
+                  </Container>
+                  <Container mt='1%' centerContent>
+                    <Instructions></Instructions>
+                  </Container>
+                  <br></br>
+                  <HStack>
+                    <CurrentlyPlaying token={token} />
+                    <br></br>
+                    <SongInput></SongInput>
+                  </HStack>
+                  
+                  <br></br>
+                  <Center>
+                    <Heading size='sm'>Profile: </Heading>
+                    {profile && (
+                      <div>
+                        <Heading size='sm'>{profile.display_name}</Heading>
+                        <p>{profile.followers.total} Followers</p>
+                        {/* {profile.images.length && profile.images[0].url && (
+                          <img src={profile.images[0].url} alt="Avatar"/>
+                        )} */}
+                      </div>
                     )}
-                  </div>
-                )}
-              </>
-        )}
-      </header>
-    </div>
+                  </Center>
+                  
+                </>
+          )}
+        </header>
+      </div>
+    </>
   )
 }
 

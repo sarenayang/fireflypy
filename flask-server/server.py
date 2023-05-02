@@ -45,7 +45,7 @@ REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
 
 spotify_client = SpotifyClient(os.getenv("SPOTIPY_CLIENT_ID"), os.getenv("SPOTIPY_CLIENT_SECRET"))
 song_info = []
-answer = ''
+
 @app.route('/')
 def index():
 
@@ -113,50 +113,6 @@ def callback():
     else:
         logging.error('getToken:' + str(post_response.status_code))
         return jsonify({'error': 'invalid token'}), 400
-    # auth_token = request.args['code']
-    # spotify_client.get_authorization(auth_token)
-    # authorization_header = spotify_client.authorization_header
-    # session['authorization_header'] = authorization_header
-    # return redirect(url_for('loading_bp.loading'))
-
-@app.route('/sign_out')
-def sign_out():
-    session.pop("token_info", None)
-    return redirect('/')
-
-
-@app.route('/playlists')
-def playlists():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user_playlists()
-
-
-@app.route('/currently_playing')
-def currently_playing():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    track = spotify.currently_playing()
-    if not track is None:
-        return jsonify(track)
-    return "No track currently playing."
-
-
-@app.route('/current_user')
-def current_user():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return jsonify(spotify.current_user())
 
 @app.route('/add', methods=['POST'])
 def add():
@@ -165,24 +121,48 @@ def add():
     song_info.append(name)
     artist = request.get_json()['artists'][0]['name']
     song_info.append(artist)
+    # picture = request.get_json()['album']['images'][0]['url']
+    # print(picture)
+    # song_info.append(picture)
     return name, artist
 
 @app.route('/title_input', methods=['POST'])
 def title_input():
+    song_answer = ''
+    artist_answer = ''
     name = request.get_json()['name']
+    artist = request.get_json()['artist']
+    points = request.get_json()['points']
+    correct_song = song_info[0]
+    correct_artist = song_info[1]
+    already_guessed = ''
     if (song_info):
-        if (name == song_info[0]):
-            answer = 'your answer is the correct answer'
-            print(answer)
+        if (name.lower() == song_info[0].lower()):
+            song_answer = 'your song guess is the correct answer'
+            points+=1
         else:
-            answer = 'your answer is the <b>wrong answer<b>'
-            print(answer)
+            song_answer = 'your song guess is the wrong answer'
+        if (artist.lower() == song_info[1].lower()):
+            artist_answer = 'your artist guess is the correct answer'
+            points+=1
+        else:
+            artist_answer = 'your artist guess is the wrong answer'
     else:
-        print('song already guessed')
+        already_guessed = 'song already guessed'
         return ''
-    print('guess: ', request.get_json()['name'])
-    print('answer: ', song_info[0])
-    return jsonify({ 'guess': name, 'answer': answer, 'title': song_info[0] })
+    song_info.clear()
+    # print('guess: ', request.get_json()['name'])
+    # print('answer: ', song_info[0])
+
+    return jsonify({'song_guess': name, 
+                    'artist_guess': artist,
+                    'song_correct': correct_song,
+                    'artist_correct': correct_artist,
+                    'song_answer': song_answer,
+                    'artist_answer': artist_answer,
+                    'points': points,
+                    'already_guessed': already_guessed
+                    })
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)
