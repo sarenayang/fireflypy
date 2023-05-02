@@ -1,7 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import {levenshteinEditDistance} from 'levenshtein-edit-distance'
 
 function SongInput() {
 
@@ -22,15 +20,6 @@ function SongInput() {
         e.target.reset()
     }
 
-    const {
-          transcript,
-          listening,
-          resetTranscript,
-    } = useSpeechRecognition();
-      
-
-    const [value, setValue] = useState('');
-
     return (
         <>
             <div className="container">
@@ -42,12 +31,6 @@ function SongInput() {
                         <label htmlFor='nameartist'>Artist Name </label>
                         <input type='text' id='nameartist' onChange={e => setArtist(e.target.value)}/>
                         <button> submit </button>
-                        <p>Microphone: {listening ? 'on' : 'off'}</p>
-                        <button onClick={SpeechRecognition.startListening}>Start</button>
-                        <button onClick={resetTranscript}>Reset</button>
-                        <p>{transcript}</p> 
-                        <button onClick={() => setTitle(transcript)}>Confirm</button>
-                        
                     </form>
                 </div>
                 <div>
@@ -61,6 +44,6 @@ function SongInput() {
         </>
     );
     
-};
+}
 
-export default SongInput;
+export default SongInput
