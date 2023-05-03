@@ -24,6 +24,7 @@ import base64
 import logging
 import os
 from urllib.parse import urlencode
+import Levenshtein
 from flask import Flask, session, request, redirect, jsonify, url_for
 from flask_session import Session
 from dotenv import load_dotenv
@@ -137,12 +138,12 @@ def title_input():
     correct_artist = song_info[1]
     already_guessed = ''
     if (song_info):
-        if (name.lower() == song_info[0].lower()):
+        if (check_correct_title(name, song_info[0])):
             song_answer = 'your song guess is the correct answer'
             points+=1
         else:
             song_answer = 'your song guess is the wrong answer'
-        if (artist.lower() == song_info[1].lower()):
+        if (check_correct_artist(artist, song_info[1])):
             artist_answer = 'your artist guess is the correct answer'
             points+=1
         else:
@@ -163,6 +164,26 @@ def title_input():
                     'points': points,
                     'already_guessed': already_guessed
                     })
+
+def check_correct_title(song, response):
+    song = song.lower()
+    response = response.lower()
+    dist = Levenshtein.ratio(song, response, score_cutoff = 0.83)
+    print(dist)
+    if (dist > 0.83):
+        return True
+    else:
+        return False
+
+def check_correct_artist(artist, response):
+    artist = artist.lower()
+    response = response.lower()
+    dist = Levenshtein.ratio(artist, response, score_cutoff = 0.83)
+    print(dist)
+    if (dist > 0.83):
+        return True
+    else:
+        return False
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)

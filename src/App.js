@@ -15,6 +15,8 @@ import {
   VStack
 } from '@chakra-ui/react'
 
+import { Select } from "@chakra-ui/react"
+
 
 function App() {
 
@@ -31,6 +33,11 @@ function App() {
     };
     catchErrors(fetchData());
   }, []);
+
+  const [inputMethod, setInputMethod] = useState('keyboard');
+  const handleSelectChange = (event) => {
+    setInputMethod(event.target.value);
+  };
 
 
   
@@ -62,12 +69,18 @@ function App() {
                   </Container>
                   <Container mt='1%' centerContent>
                     <Instructions></Instructions>
+                    <br></br>
+                    <Select htmlSize={20} width='auto' onChange={handleSelectChange}>
+                      {console.log(inputMethod)}
+                      <option value="keyboard">Keyboard Input</option>
+                      <option value="microphone">Microphone Input</option>
+                    </Select>
                   </Container>
                   <br></br>
                   <HStack>
                     <CurrentlyPlaying token={token} />
                     <br></br>
-                    <SongInput></SongInput>
+                    <SongInput inputMethod={inputMethod}></SongInput>
                   </HStack>
                   
                   <br></br>
