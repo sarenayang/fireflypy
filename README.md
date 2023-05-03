@@ -2,7 +2,7 @@
 
 A game similar to Wordle, but you guess songs as they play instead.
 
-
+*CS222 Project created by Aadya Doma, Rachel Tin, Ryan Yang, Sarena Yang*
 ## Project Description
 Using the [Spotify API](https://developer.spotify.com/documentation/web-api) and [Spotify's Developer Dashboard](https://developer.spotify.com/dashboard), this game allows users to login to their accounts, enabling them to control Spotify playback directly in their browser. \
 <img width="373" alt="image" src="https://user-images.githubusercontent.com/89556837/235406107-11ca61df-a63e-406d-8710-02bd6a210f74.png"> \
@@ -20,6 +20,8 @@ For this project, we utilized React.js for the frontend and customized the compo
 
 ## Available Scripts
 
+*To run the game locally:*
+
 In the project directory, you can run:
 
 ### `npm start`
@@ -32,13 +34,10 @@ In the flask-server directory, you can run:
 ### `python3 server.py`
 
 Runs the backend server.\
-Runs on [http://localhost:8080] in development mode.
+Runs on [http://localhost:8080](http://localhost:8080) in development mode.
 
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributions
+Ryan Yang: Implementing microphone and speech recognition features\
+Rachel Tin: Processing user inputs received from the client in the backend and returning results\
+Aadya Doma: Implementing and reformatting with Chakra UI components and overall game design\
+Sarena Yang: Utilizing the Spotify API to allow user authentication and web browser playback for songs
