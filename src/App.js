@@ -4,6 +4,7 @@ import { catchErrors } from './utils';
 import CurrentlyPlaying from './components/CurrentlyPlaying';
 import SongInput from './components/SongInput';
 import Instructions from './components/Instructions';
+import SongPlaylists from './components/SongPlaylists';
 
 import {
   Link,
@@ -40,7 +41,7 @@ function App() {
   };
 
 
-  
+
   return (
     <>
       <div className="App">
@@ -58,13 +59,13 @@ function App() {
                   </Link>
                 </Button>
               </VStack>
-              
-              
+
+
             </Center>
-            
+
           ) : (
                 <>
-                  <Container mt='0.5%' centerContent> 
+                  <Container mt='0.5%' centerContent>
                     <Button colorScheme='purple' variant='outline' onClick={logout}>Log Out</Button>
                   </Container>
                   <Container mt='1%' centerContent>
@@ -82,7 +83,7 @@ function App() {
                     <br></br>
                     <SongInput inputMethod={inputMethod}></SongInput>
                   </HStack>
-                  
+
                   <br></br>
                   <Center>
                     <Heading size='sm'>Profile: </Heading>
@@ -96,9 +97,12 @@ function App() {
                       </div>
                     )}
                   </Center>
-                  
+
                 </>
           )}
+          {/* <Container>
+            <SongPlaylists></SongPlaylists>
+          </Container> */}
         </header>
       </div>
     </>

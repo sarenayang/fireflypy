@@ -54,8 +54,8 @@ function SongInput(props) {
             console.log(res.data)
             setAnswer(res.data)
             setPoints(res.data.points)
-            
          });
+         event.target.reset();  
     }
 
     const resetPoints = (event) => {
@@ -70,7 +70,6 @@ function SongInput(props) {
                         <FormControl>
                             
                             <Container centerContent>
-                                <Heading size='md'>Keyboard Input</Heading>
                                 <div>
                                     <FormLabel>Song Name</FormLabel>
                                     <Input htmlSize={20} width='auto' type='text' id='namesong' onChange={e => setTitle(e.currentTarget.value)}/>
@@ -110,35 +109,41 @@ function SongInput(props) {
                 <Container centerContent>
                     <form onSubmit={handleSubmit} method='post'>
                         <FormControl>
+                            <HStack>
+                                <Container centerContent>
+                                    
+                                    <Heading size='sm'>Guess Song</Heading>
+                                    <Text>Microphone: {listening ? 'on' : 'off'}</Text>
+                                    <HStack>
+                                        <Button colorScheme='purple' variant='outline' onClick={SpeechRecognition.startListening}>Start</Button>
+                                        <Button colorScheme='purple' variant='outline' onClick={resetTranscript}>Reset</Button>
+                                    </HStack>
+                                    
+                                    <Text>{transcript}</Text> 
+                                    <br></br>
+                                    <Button colorScheme='purple' variant='outline'  onClick={() => setTitle(transcript)}>Confirm</Button>
+                                </Container>
+                            
+                                <Container centerContent>
+                                    <Heading size='sm'>Guess Artist</Heading>
+                                    <Text>Microphone: {listening ? 'on' : 'off'}</Text>
+                                    <HStack>
+                                        <Button colorScheme='purple' variant='outline' onClick={SpeechRecognition.startListening}>Start</Button>
+                                        <Button colorScheme='purple' variant='outline' onClick={resetTranscript}>Reset</Button>
+                                    </HStack>
+                                    
+                                    <Text>{transcript}</Text> 
+                                    <br></br>
+                                    <Button colorScheme='purple' variant='outline'  onClick={() => setArtist(transcript)}>Confirm</Button>
+                                </Container>
 
-                            <Container centerContent>
-                                <Heading size='md'>Microphone Inputs</Heading>
-                                <br></br>
-                                <Heading size='sm'>Guess Song</Heading>
-                                <Text>Microphone: {listening ? 'on' : 'off'}</Text>
-                                <HStack>
-                                    <Button colorScheme='purple' variant='outline' onClick={SpeechRecognition.startListening}>Start</Button>
-                                    <Button colorScheme='purple' variant='outline' onClick={resetTranscript}>Reset</Button>
-                                </HStack>
-                                
-                                <Text>{transcript}</Text> 
-                                <br></br>
-                                <Button colorScheme='purple' variant='outline'  onClick={() => setTitle(transcript)}>Confirm</Button>
-                            </Container>
-                        
-                            <Container centerContent>
-                                <br></br>
-                                <Heading size='sm'>Guess Artist</Heading>
-                                <Text>Microphone: {listening ? 'on' : 'off'}</Text>
-                                <HStack>
-                                    <Button colorScheme='purple' variant='outline' onClick={SpeechRecognition.startListening}>Start</Button>
-                                    <Button colorScheme='purple' variant='outline' onClick={resetTranscript}>Reset</Button>
-                                </HStack>
-                                
-                                <Text>{transcript}</Text> 
-                                <br></br>
-                                <Button colorScheme='purple' variant='outline'  onClick={() => setArtist(transcript)}>Confirm</Button>
-                            </Container>
+                            </HStack>
+
+
+                            
+                            <Center>
+                                    <Button colorScheme='purple' variant='outline' m='4' type='submit'>Submit</Button>
+                            </Center>
                                 
                         </FormControl>
                         
