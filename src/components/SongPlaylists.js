@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   Button,
   Center,
+  Text
 } from '@chakra-ui/react'
 
 
@@ -47,12 +48,18 @@ const SongPlaylists = () => {
   const playlistID = '64AZ6N0CHszdFVNwnat1ig'
 
   const handleSubmit = async (event) => {
+      event.preventDefault();
+      console.log(event.target.value);
+      setID(event.target.value)
       const data = { id: id, username: 'neap', token: token}
-      await axios.post('http://localhost:8080/get_valence', data)
+      axios.post('http://localhost:8080/get_valence', data)
       .then((res) => {
           // JSON response is handled by a json() promises
           setMood(res.data)
           console.log(mood)
+       })
+       .catch(function(err) {
+          console.log(err);
        });
   }
 
@@ -61,9 +68,10 @@ const SongPlaylists = () => {
     <>
       <Button colorScheme='purple' variant='outline' onClick={handleGetPlaylists}>View Playlists</Button>
         {data?.items ? data.items.map((item) => 
-        <Button onClick={async (event) =>  {await setID(item.id); await handleSubmit()}}>{item.name}</Button>) 
+        // <Button onClick={async (event) =>  {await setID(item.id); await handleSubmit()}}>{item.name}</Button>) 
+        <Button onClick={handleSubmit} value={item.id}>{item.name}</Button>)
         : null}
-      <Button colorScheme='cyan'>Happiness meter: {mood}</Button>
+      <Text colorScheme='cyan'>Happiness meter: {mood}</Text>
     </>
   );
 };

@@ -41,6 +41,7 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
@@ -211,6 +212,7 @@ def get_valence():
     playlist_id = ''
     print('hi')
     name = request.get_json()['id']
+    print(name)
     token = request.get_json()['token']
     username = request.get_json()['username']
     query = "https://api.spotify.com/v1/playlists/" + name + "/tracks"
@@ -228,7 +230,7 @@ def get_valence():
     for p in valres_json["audio_features"]:
         if (p != None):
             happiness.append(p['valence'])
-    avg = mean(happiness)
+    avg = round(mean(happiness),5)
     print(avg)
     return str(avg)
 
