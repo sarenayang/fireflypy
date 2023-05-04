@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Select } from "@chakra-ui/react"
+import ViewPlaylists from './components/ViewPlaylists';
 
 
 function App() {
@@ -96,7 +97,10 @@ function App() {
                       </div>
                     )}
                   </Center>
-                  
+                  <br></br>
+                  <Center>
+                    <ViewPlaylists></ViewPlaylists>
+                  </Center>
                 </>
           )}
         </header>

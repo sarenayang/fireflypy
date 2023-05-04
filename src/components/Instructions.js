@@ -7,6 +7,7 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
+    List,
   } from '@chakra-ui/react'
 
   import {
@@ -36,6 +37,7 @@ function Instructions() {
                         to begin browser playback.</ListItem>
                         <ListItem>Choose a playlist to start guessing songs from!</ListItem>
                         <ListItem>Enter your guesses for the song title and artist in the text boxes.</ListItem>
+                        <ListItem>If using Microphone Input, please use the format "(Song Title) by (Artist)"</ListItem>
                         <ListItem>Click on the "Submit" button to submit your guesses.</ListItem>
                         <ListItem>If you guess both song and artist correctly, you will be awarded 2 points.
                         If you guess only one correctly, you will be awarded 1 point.</ListItem>

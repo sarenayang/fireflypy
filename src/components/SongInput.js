@@ -58,6 +58,19 @@ function SongInput(props) {
          });
     }
 
+    const handleSubmit2 = (event) => {
+        event.preventDefault();
+        const data = { name: title, artist: artist, points: points}
+        axios.post('http://localhost:8080/title_inputmic', data)
+        .then((res) => {
+            // JSON response is handled by a json() promises
+            console.log(res.data)
+            setAnswer(res.data)
+            setPoints(res.data.points)
+            
+         });
+    }
+
     const resetPoints = (event) => {
         event.preventDefault();
         setPoints(0)
@@ -108,13 +121,11 @@ function SongInput(props) {
         return (
             <>
                 <Container centerContent>
-                    <form onSubmit={handleSubmit} method='post'>
-                        <FormControl>
 
                             <Container centerContent>
                                 <Heading size='md'>Microphone Inputs</Heading>
                                 <br></br>
-                                <Heading size='sm'>Guess Song</Heading>
+                                <Heading size='sm'>Guess Song and Artist</Heading>
                                 <Text>Microphone: {listening ? 'on' : 'off'}</Text>
                                 <HStack>
                                     <Button colorScheme='purple' variant='outline' onClick={SpeechRecognition.startListening}>Start</Button>
@@ -123,26 +134,11 @@ function SongInput(props) {
                                 
                                 <Text>{transcript}</Text> 
                                 <br></br>
-                                <Button colorScheme='purple' variant='outline'  onClick={() => setTitle(transcript)}>Confirm</Button>
-                            </Container>
-                        
-                            <Container centerContent>
-                                <br></br>
-                                <Heading size='sm'>Guess Artist</Heading>
-                                <Text>Microphone: {listening ? 'on' : 'off'}</Text>
-                                <HStack>
-                                    <Button colorScheme='purple' variant='outline' onClick={SpeechRecognition.startListening}>Start</Button>
-                                    <Button colorScheme='purple' variant='outline' onClick={resetTranscript}>Reset</Button>
-                                </HStack>
-                                
-                                <Text>{transcript}</Text> 
-                                <br></br>
-                                <Button colorScheme='purple' variant='outline'  onClick={() => setArtist(transcript)}>Confirm</Button>
+                                <Button colorScheme='purple' variant='outline'  onClick={() => setTitle(transcript)}>Confirm Input</Button>
+                                <Button colorScheme='purple' variant='outline' onClick={handleSubmit2}>Submit</Button>
                             </Container>
                                 
-                        </FormControl>
                         
-                    </form>
                 </Container>
                 <br></br>
                 <Container>

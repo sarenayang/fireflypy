@@ -32,6 +32,8 @@ import requests
 import spotipy
 from flask_cors import CORS
 from spotify_client import SpotifyClient
+from spotipy.oauth2 import SpotifyClientCredentials
+from statistics import mean 
 load_dotenv()
 
 app = Flask(__name__)
@@ -154,6 +156,45 @@ def title_input():
     song_info.clear()
     # print('guess: ', request.get_json()['name'])
     # print('answer: ', song_info[0])
+    return jsonify({'song_guess': name, 
+                'artist_guess': artist,
+                'song_correct': correct_song,
+                'artist_correct': correct_artist,
+                'song_answer': song_answer,
+                'artist_answer': artist_answer,
+                'points': points,
+                'already_guessed': already_guessed
+                })
+
+@app.route('/title_inputmic', methods=['POST'])
+def title_inputmic():
+    song_answer = ''
+    artist_answer = ''
+    fullresponse = request.get_json()['name']
+    x = fullresponse.split(' by ')
+    name = x[0]
+    artist = x[1]
+    points = request.get_json()['points']
+    correct_song = song_info[0]
+    correct_artist = song_info[1]
+    already_guessed = ''
+    if (song_info):
+        if (check_correct_title(name, song_info[0])):
+            song_answer = 'your song guess is the correct answer'
+            points+=1
+        else:
+            song_answer = 'your song guess is the wrong answer'
+        if (check_correct_artist(artist, song_info[1])):
+            artist_answer = 'your artist guess is the correct answer'
+            points+=1
+        else:
+            artist_answer = 'your artist guess is the wrong answer'
+    else:
+        already_guessed = 'song already guessed'
+        return ''
+    song_info.clear()
+    # print('guess: ', request.get_json()['name'])
+    # print('answer: ', song_info[0])
 
     return jsonify({'song_guess': name, 
                     'artist_guess': artist,
@@ -164,6 +205,34 @@ def title_input():
                     'points': points,
                     'already_guessed': already_guessed
                     })
+
+@app.route('/get_valence', methods=['POST'])
+def get_valence():
+    playlist_id = ''
+    print('hi')
+    name = request.get_json()['id']
+    token = request.get_json()['token']
+    username = request.get_json()['username']
+    query = "https://api.spotify.com/v1/playlists/" + name + "/tracks"
+    response = requests.get(query, data=None, headers={"Authorization": "Bearer {}".format(token)})
+    response_json = response.json()
+    print(name)
+    print(query)
+    tracks = ''
+    for p in response_json["items"]:
+        tracks = tracks + ',' + (p["track"]["id"])
+    happiness = []
+    valquery = "https://api.spotify.com/v1/audio-features?ids=" + tracks
+    valres = requests.get(valquery, data=None, headers={"Authorization": "Bearer {}".format(token)})
+    valres_json = valres.json()
+    for p in valres_json["audio_features"]:
+        if (p != None):
+            happiness.append(p['valence'])
+    avg = mean(happiness)
+    print(avg)
+    return str(avg)
+
+
 
 def check_correct_title(song, response):
     song = song.lower()
@@ -189,5 +258,14 @@ Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)
 (Also includes directive to leverage pythons threading capacity.)
 '''
+
+def generate_token():
+    """ Generate the token. Please respect these credentials :) """
+    credentials = SpotifyClientCredentials(
+        client_id=os.getenv("SPOTIPY_CLIENT_ID"),
+        client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"))
+    token = credentials.get_access_token()
+    return token
+
 if __name__ == '__main__':
     app.run(threaded=True, port=8080)
