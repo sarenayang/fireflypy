@@ -20,7 +20,7 @@ We also added a happiness meter, which shows how happy your playlists are depend
 <img width="342" alt="image" src="https://user-images.githubusercontent.com/89556837/236563062-63138cc8-2585-4fa2-a6c6-1a03244824d3.png">
 
 
-For this project, we utilized React.js for the frontend and customized the components using Chakra UI. For the backend, which allowed us to authenticate users as well as process user input and return their results, we used Flask, allowing us to use Python libraries for our scripts and processing.
+For this project, we utilized React.js for the frontend and customized the components using Chakra UI. For the backend, which allowed us to authenticate users as well as process user input and return their results, we used Flask, allowing us to use Python libraries such as Spotipy and Levenshtein for our scripts and processing, as well as our own code.
 
 ## Available Scripts
 
