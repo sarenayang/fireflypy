@@ -2,7 +2,7 @@
 
 A game similar to Wordle, but you guess songs as they play instead.
 
-We created this as some of played a similar game growing up, so we decided to recreate it to be more accessible in the browser.
+We created this as some of us played a similar game growing up, so we decided to recreate it to be more accessible in the browser.
 
 *CS222 Project created by Aadya Doma, Rachel Tin, Ryan Yang, Sarena Yang*
 ## Project Description
