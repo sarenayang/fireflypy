@@ -9,12 +9,16 @@ Using the [Spotify API](https://developer.spotify.com/documentation/web-api) and
 <img width="364" alt="image" src="https://user-images.githubusercontent.com/89556837/235406152-4765fe2f-e01e-4da7-8f5d-bba7f8953122.png"> 
 
 Users are then redirected to the game\
-<img width="911" alt="image" src="https://user-images.githubusercontent.com/89556837/235836948-9a91195d-720e-4f0c-83b6-530607ca0591.png">\
+<img width="907" alt="image" src="https://user-images.githubusercontent.com/89556837/236562716-e9424a07-5254-4fdb-abc6-27425730e41f.png">\
 Here, they are able to log out or connect to their Spotify playback using Spotify Connect. Once they are connected, they can play songs and try to guess the song name and song artist, winning points for each one they get correct. 
 
 We added a tutorial for user's to be introduced to the game rules. We also added the ability to choose between whether users would like to guess using their keyboard or by using a microphone. Should player's be stuck on a certain song we have implemented a hint feature, which displays the album cover of the song to help players make more informed guesses.
 
 <!--We implemented a speech recoginition feature so that users could make guesses using their voices, utilizing Python libraries such as Levenshtein to process the microphone input. As a backup, we also implemented a keyboard feature so that users could type out their guesses as well, in case we were unsuccessful with the speech recognition feature.-->
+
+We also added a happiness meter, which shows how happy your playlists are depending on what songs are in it.\
+<img width="342" alt="image" src="https://user-images.githubusercontent.com/89556837/236563062-63138cc8-2585-4fa2-a6c6-1a03244824d3.png">
+
 
 For this project, we utilized React.js for the frontend and customized the components using Chakra UI. For the backend, which allowed us to authenticate users as well as process user input and return their results, we used Flask, allowing us to use Python libraries for our scripts and processing.
 
