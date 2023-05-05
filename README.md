@@ -50,6 +50,8 @@ In the flask-server directory, you can run:
 
 Runs the backend server.\
 Runs on [http://localhost:8080](http://localhost:8080) in development mode.
+ 
+You should now be able to play the game!
 
 ## Contributions
 Ryan Yang: Implementing microphone and speech recognition features\
