@@ -100,6 +100,7 @@ const getAccessToken = () => {
 
   // We should never get here!
   return false;
+  
 };
 
 /**
